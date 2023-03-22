@@ -25,21 +25,24 @@ class DemoController extends Controller
             $message = $request->message;
             //MQTT::publish('some/topic', trim($request->message));
            // MQTT::publish('some/topic', trim($request->message), false , 'public');
-            $server   = 'broker.emqx.io';
+           $server   = 'localhost';
+            //$server   = 'broker.emqx.io';
             $port     = 1883;
             $clientId = rand(5, 15);
            // $username = 'emqx_user';
            // $password = 'public';
-           // $clean_session = false;
+            $clean_session = false;
            // $mqtt_version = MqttClient::MQTT_3_1_1;
+           $username = 'miralpatel';
+          $password = 'Test@123##';
 
-            // $connectionSettings = (new ConnectionSettings)
-            //     ->setUsername($username)
-            //     ->setPassword($password)
-            //     ->setKeepAliveInterval(60)
-            //     ->setLastWillTopic('emqx/test/last-will')
-            //     ->setLastWillMessage('client disconnect')
-            //     ->setLastWillQualityOfService(1);
+            $connectionSettings = (new ConnectionSettings)
+                ->setUsername($username)
+                ->setPassword($password);
+               // ->setKeepAliveInterval(60)
+              //  ->setLastWillTopic('emqx/test/last-will')
+               // ->setLastWillMessage('client disconnect')
+               // ->setLastWillQualityOfService(1);
 
             // Create a new instance of an MQTT client and configure it to use the shared broker host and port.
             //$mqtt = new MqttClient('host', 'port=1883', 'clientid=null', 'protocol=self::MQTT_3_1', 'repository=null', 'logger=null');
@@ -49,8 +52,8 @@ class DemoController extends Controller
 
             // Connect to the broker without specific connection settings but with a clean session.
            //$mqtt->connect(null, true);
-            $mqtt->connect();
-            //$mqtt->connect($connectionSettings, $clean_session);
+            //$mqtt->connect();
+          $mqtt->connect($connectionSettings, $clean_session);
            // $mqtt->publish('php-mqtt/client/test', trim($request->message), 0);
             //$mqtt->publish('php-mqtt/client/test', trim($request->message), 1);
             $mqtt->publish('php-mqtt/client/test', trim($request->message), 0);

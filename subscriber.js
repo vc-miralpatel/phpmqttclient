@@ -66,11 +66,20 @@
 
 //-----------without username and password----
 const mqtt = require('mqtt');
-const host = 'broker.emqx.io';
+//const host = 'broker.emqx.io';
+const host = 'localhost';
 const port = '1883';
 const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
-const connectUrl = `mqtt://${host}:${port}`;
-const client = mqtt.connect(connectUrl)
+//const connectUrl = `mqtt://${host}:${port}`;
+const connectUrl = `http://${host}:${port}`;
+//const connectUrl = `http://phpmqttclient.local:1883`;
+const options = {
+  //clientId: 'myclient',
+  username: 'miralpatel',
+  password: 'Test@123##'
+};
+const client = mqtt.connect(connectUrl,options)
+
 console.log(connectUrl);
   const topic = 'php-mqtt/client/test'
   client.on('connect', () => {
